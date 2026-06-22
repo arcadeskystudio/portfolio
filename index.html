@@ -202,6 +202,31 @@
     /* ── PORTFOLIO ────────────────────────────────────────── */
     #portfolio { background: var(--surface); }
     .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 24px; }
+
+    /* ── PORTFOLIO FILTER TABS ─────────────────────────── */
+    .filter-tabs {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .ftab {
+      font-family: var(--font-display); font-size: .88rem; font-weight: 600;
+      padding: 10px 24px; border-radius: 100px; cursor: pointer;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--muted); transition: all .2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ftab:hover { border-color: var(--blue); color: var(--text); }
+    .ftab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .ftab .ftab-count {
+      background: rgba(255,255,255,.2); border-radius: 100px;
+      font-size: .72rem; padding: 1px 8px; font-weight: 700;
+    }
+    .ftab:not(.active) .ftab-count { background: var(--surface2); color: var(--muted); }
+
+    .project-card { transition: transform .25s, border-color .3s, opacity .3s, max-height .3s; }
+    .project-card.hidden {
+      display: none;
+    }
     .project-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform .25s, border-color .3s; }
     .project-card:hover { transform: translateY(-5px); border-color: var(--blue); }
     .project-thumb { height: 180px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; }
@@ -544,10 +569,28 @@
       <h2 class="section-title">Shipped &amp; Live<br>in the Real World</h2>
       <p class="section-sub">Real projects, real downloads, real clients — with results to show for it.</p>
     </div>
+    <!-- Filter Tabs -->
+    <div class="filter-tabs reveal">
+      <button class="ftab active" onclick="filterPortfolio('all', this)">
+        All <span class="ftab-count">6</span>
+      </button>
+      <button class="ftab" onclick="filterPortfolio('game', this)">
+        🎮 Games <span class="ftab-count">3</span>
+      </button>
+      <button class="ftab" onclick="filterPortfolio('website', this)">
+        🌐 Websites <span class="ftab-count">3</span>
+      </button>
+      <button class="ftab" onclick="filterPortfolio('app', this)">
+        📱 Apps <span class="ftab-count">0</span>
+      </button>
+    </div>
+
     <div class="portfolio-grid">
-      <div class="project-card reveal">
+
+      <!-- Extreme Car Racing -->
+      <div class="project-card reveal" data-category="game">
         <div class="project-thumb" style="padding:0;overflow:hidden;background:#111;">
-          <img src="https://play-lh.googleusercontent.com/bOqFVNh-nYdVZzgE48QlgEEGn_VOfmKQ41OKu8obnv5Sy68ur8dCG_Q2Di7SsB0UqwbZQL-9ZR4nz2CeNe25iA=w526-h296" alt="Extreme Car Racing 3D screenshot" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <img src="https://play-lh.googleusercontent.com/bOqFVNh-nYdVZzgE48QlgEEGn_VOfmKQ41OKu8obnv5Sy68ur8dCG_Q2Di7SsB0UqwbZQL-9ZR4nz2CeNe25iA=w526-h296" alt="Extreme Car Racing 3D" style="width:100%;height:100%;object-fit:cover;display:block;" />
           <div class="project-result-badge">500K+ Downloads</div>
         </div>
         <div class="project-body">
@@ -556,9 +599,11 @@
           <div class="project-meta"><span class="project-type">Mobile Game</span><a class="project-link" href="https://play.google.com/store/apps/details?id=com.lgs.racing3D2022" target="_blank">Google Play ↗</a></div>
         </div>
       </div>
-      <div class="project-card reveal">
+
+      <!-- Water Park Simulator -->
+      <div class="project-card reveal" data-category="game">
         <div class="project-thumb" style="padding:0;overflow:hidden;background:#111;">
-          <img src="https://play-lh.googleusercontent.com/xg3St2vHRTCi6spsI_eWnWwf31O54h1EX_llLQBqlY1ht1fd1sjBc93wHWlgT6ie2fLpSlh9n7YZm3P7j9qoIws=w526-h296" alt="Water Park Simulator screenshot" style="width:100%;height:100%;object-fit:cover;display:block;" />
+          <img src="https://play-lh.googleusercontent.com/xg3St2vHRTCi6spsI_eWnWwf31O54h1EX_llLQBqlY1ht1fd1sjBc93wHWlgT6ie2fLpSlh9n7YZm3P7j9qoIws=w526-h296" alt="Water Park Simulator" style="width:100%;height:100%;object-fit:cover;display:block;" />
           <div class="project-result-badge">Published iOS & Android</div>
         </div>
         <div class="project-body">
@@ -567,7 +612,9 @@
           <div class="project-meta"><span class="project-type">Mobile Game</span><a class="project-link" href="https://play.google.com/store/apps/details?id=com.arcadesky.waterpark.simulator" target="_blank">Google Play ↗</a></div>
         </div>
       </div>
-      <div class="project-card reveal">
+
+      <!-- VoltaDrive -->
+      <div class="project-card reveal" data-category="game">
         <div class="project-thumb thumb-volta">
           ⚡
           <div class="project-result-badge">Cross-Platform</div>
@@ -578,9 +625,11 @@
           <div class="project-meta"><span class="project-type">Mobile Game</span><a class="project-link" href="https://play.google.com/store/apps/details?id=com.voltadrive.rocketsoccer" target="_blank">Google Play ↗</a></div>
         </div>
       </div>
-      <div class="project-card reveal">
-        <div class="project-thumb thumb-reads">
-          📖
+
+      <!-- 92reads -->
+      <div class="project-card reveal" data-category="website">
+        <div class="project-thumb" style="padding:0;overflow:hidden;background:#111;">
+          <img src="img-92reads.jpg" alt="92reads.com screenshot" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
           <div class="project-result-badge">Live & Indexed</div>
         </div>
         <div class="project-body">
@@ -589,17 +638,33 @@
           <div class="project-meta"><span class="project-type">Web App</span><a class="project-link" href="https://92reads.com" target="_blank">Visit Site ↗</a></div>
         </div>
       </div>
-      <div class="project-card reveal">
-        <div class="project-thumb thumb-plumber">
-          🔧
+
+      <!-- Handyman Scot -->
+      <div class="project-card reveal" data-category="website">
+        <div class="project-thumb" style="padding:0;overflow:hidden;background:#111;">
+          <img src="img-handymanscot.jpg" alt="Handyman Scot website" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
+          <div class="project-result-badge">Live in Scotland</div>
+        </div>
+        <div class="project-body">
+          <h3>Handyman Scot</h3>
+          <p>Home repair & maintenance services website. Professional multi-page site with service listings, contact form, and mobile-first design.</p>
+          <div class="project-meta"><span class="project-type">Client Website</span><a class="project-link" href="https://www.handymanscot.uk/" target="_blank">Visit Site ↗</a></div>
+        </div>
+      </div>
+
+      <!-- ProCraft Solutions -->
+      <div class="project-card reveal" data-category="website">
+        <div class="project-thumb" style="padding:0;overflow:hidden;background:#111;">
+          <img src="img-procraft.jpg" alt="ProCraft Solutions website" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;" />
           <div class="project-result-badge">Delivered in 7 Days</div>
         </div>
         <div class="project-body">
-          <h3>Local Trade Business Website</h3>
-          <p>Client website for a plumbing, heating & renovation business in Fife. Admin panel, project gallery, mobile-first design — delivered in 7 days.</p>
-          <div class="project-meta"><span class="project-type">Client Website</span><span style="font-size:.8rem;color:var(--muted)">Link coming soon</span></div>
+          <h3>ProCraft Solutions</h3>
+          <p>Boiler, plumbing & home renovation business in Fife. Emergency callout bar, Gas Safe badges, project gallery, and free quote form.</p>
+          <div class="project-meta"><span class="project-type">Client Website</span><a class="project-link" href="https://arcadeskystudio.github.io/BookService-preview/" target="_blank">Visit Site ↗</a></div>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -924,6 +989,18 @@
     // start
     startProgress();
     timer = setTimeout(next, DURATION);
+
+    // ── PORTFOLIO FILTER ────────────────────────────────────
+    function filterPortfolio(cat, btn) {
+      // update tabs
+      document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      // filter cards
+      document.querySelectorAll('.project-card').forEach(card => {
+        const match = cat === 'all' || card.dataset.category === cat;
+        card.classList.toggle('hidden', !match);
+      });
+    }
 
     // ── NAV HAMBURGER ───────────────────────────────────────
     function toggleMenu() {
